@@ -9,3 +9,10 @@ export interface IUser {
   roles: ObjectId[];
   isAdmin: boolean;
 }
+
+export interface AutenticatedRequest extends Request {
+  user?: {
+    _id: string;
+    isAdmin: boolean;
+  };
+}
