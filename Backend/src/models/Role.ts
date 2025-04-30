@@ -8,4 +8,4 @@ const roleSchema = new Schema<IRoleDocument>({
   permissions: [{ type: mongoose.Schema.ObjectId, ref: "Permission" }],
 });
 
-export const Roles = mongoose.model<IRoleDocument>("Role", roleSchema);
+export const Role = mongoose.model<IRoleDocument>("Role", roleSchema);

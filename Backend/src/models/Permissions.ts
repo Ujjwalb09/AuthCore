@@ -10,7 +10,7 @@ const permissionsSchema = new Schema<IPermissionDocument>(
   { timestamps: true }
 );
 
-export const Permissions = mongoose.model<IPermissionDocument>(
+export const Permission = mongoose.model<IPermissionDocument>(
   "Permission",
   permissionsSchema
 );
