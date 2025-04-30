@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import { IUserDocument, User } from "../models/User";
 import { IRoleDocument, Role } from "../models/Role";
-import { AutenticatedRequest } from "../types/types";
+import { AuthenticatedRequest } from "../types/types";
 
 export const assignRolesToUser = asyncHandler(
-  async (req: AutenticatedRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     const userId = req.params.id;
     const { roleIds } = req.body;
 
@@ -25,7 +25,7 @@ export const assignRolesToUser = asyncHandler(
 );
 
 export const getUserPermissions = asyncHandler(
-  async (req: AutenticatedRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     const user = await User.findById(req.user?._id).populate<{
       roles: IRoleDocument[];
     }>("roles");
@@ -57,7 +57,7 @@ export const getUserPermissions = asyncHandler(
 );
 
 export const getAllUsers = asyncHandler(
-  async (req: AutenticatedRequest, res: Response) => {
+  async (req: AuthenticatedRequest, res: Response) => {
     const users = await User.find().populate({
       path: "roles",
       select: "names permissions",

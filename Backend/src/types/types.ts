@@ -20,7 +20,7 @@ export interface IRole {
   permissions: string[];
 }
 
-export interface AutenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
   user?: {
     _id: string;
     isAdmin: boolean;

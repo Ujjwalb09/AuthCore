@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
-import { AutenticatedRequest } from "../types/types";
+import { AuthenticatedRequest } from "../types/types";
 import asyncHandler from "express-async-handler";
 import { User } from "../models/User";
 import { NextFunction, Response } from "express";
 
 //middleware to check if request has valid JWT token
 export const protect = asyncHandler(
-  async (req: AutenticatedRequest, res: Response, next: NextFunction) => {
+  async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     let token: string | undefined;
 
     //fetch token from header
@@ -46,7 +46,7 @@ export const protect = asyncHandler(
 );
 
 export const adminOnly = (
-  req: AutenticatedRequest,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
