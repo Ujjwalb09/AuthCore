@@ -1,6 +1,7 @@
 import DashboardLayout from "@/components/DashboardLayout";
 
 import { ShieldCheck, Users, Settings, Lock } from "lucide-react";
+
 import DashboardCard from "@/components/DashboardCard";
 
 function Dashboard() {

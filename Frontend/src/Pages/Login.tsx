@@ -24,10 +24,14 @@ const Login = () => {
       //   if (data.message === "Login Successfull") {
       //   }
 
-      login(data.token);
+      login(data.data.token, {
+        _id: data.data._id,
+        email: data.data.email,
+        isAdmin: data.data.isAdmin,
+      });
 
-      //   const permRes = await axios.get("/users/permissions");
-      //   setPermissions(permRes.data.permissions);
+      const permRes = await axios.get("/users/permissions");
+      setPermissions(permRes.data.permissions);
       toast.success("Login successful!");
       navigate("/dashboard");
     } catch (err: any) {

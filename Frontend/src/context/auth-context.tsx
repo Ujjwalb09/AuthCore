@@ -1,9 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+interface User {
+  _id: string;
+  email: string;
+  isAdmin: boolean;
+}
+
 interface AuthContextType {
   token: string | null;
   permissions: string[];
-  login: (token: string) => void;
+  user: User | null;
+  login: (token: string, userInfo: User) => void;
   logout: () => void;
   setPermissions: (perms: string[]) => void;
 }
@@ -15,16 +22,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.getItem("token")
   );
 
+  const [user, setUser] = useState<User | null>(
+    localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null
+  );
+
   const [permissions, setPermissionState] = useState<string[]>([]);
 
-  const login = (newToken: string) => {
+  const login = (newToken: string, userInfo: User) => {
     localStorage.setItem("token", newToken);
+    localStorage.setItem("user", JSON.stringify(userInfo));
     setToken(newToken);
+    setUser(userInfo);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setToken(null);
+    setUser(null);
     setPermissionState([]);
   };
 
@@ -34,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, permissions, login, logout, setPermissions }}
+      value={{ token, user, permissions, login, logout, setPermissions }}
     >
       {children}
     </AuthContext.Provider>
