@@ -26,6 +26,7 @@ export const protect = asyncHandler(
         console.log("decoded", decoded);
 
         const user = await User.findById(decoded.id).select("-password");
+        console.log(user);
 
         if (!user) {
           res.status(401);
