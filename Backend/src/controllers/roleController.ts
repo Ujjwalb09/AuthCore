@@ -52,3 +52,34 @@ export const removePermissionsFromRole = asyncHandler(
     });
   }
 );
+
+export const addPermissionsToRole = asyncHandler(
+  async (req: AuthenticatedRequest, res: Response) => {
+    const roleId = req.params.id;
+
+    const { permissionIds } = req.body;
+
+    const role = await Role.findById(roleId);
+
+    if (!role) {
+      res.status(400).json({
+        message: "Role not found",
+      });
+    } else {
+      const currentPermissions = role.permissions.map((p) => p.toString());
+
+      const newPermissions = permissionIds.filter(
+        (id: string) => !currentPermissions.includes(id)
+      );
+
+      role.permissions.push(...newPermissions);
+    }
+
+    const savedRole = await role!.save();
+
+    res.status(200).json({
+      message: "Permissions added to role successfully",
+      updatedPermissions: savedRole.permissions,
+    });
+  }
+);
