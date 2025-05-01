@@ -6,7 +6,13 @@ const Footer = () => {
       <div className="container mx-auto ">
         <div className="flex items-center justify-center flex-col gap-2">
           <p className="text-gray-400">Made by Ujjwal</p>
-          <FaGithub size={20} />
+          <FaGithub
+            className="cursor-pointer"
+            onClick={() =>
+              window.open("https://github.com/Ujjwalb09/AuthCore", "_blank")
+            }
+            size={20}
+          />
         </div>
       </div>
     </footer>

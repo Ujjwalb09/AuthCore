@@ -5,7 +5,7 @@ const DashboardLayout = ({ children }: PropsWithChildren) => {
   return (
     <div className="flex h-full">
       <Sidebar />
-      <main className="flex-grow container mx-auto px-4 py-8 md:ml-0">
+      <main className="flex-grow container mx-auto px-4 py-6 md:ml-0">
         {children}
       </main>
     </div>
