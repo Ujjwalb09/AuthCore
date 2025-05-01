@@ -1,12 +1,13 @@
-import "./App.css";
 import { ThemeProvider } from "./context/theme-provider";
+import Layout from "./components/Layout";
+import { AuthProvider } from "./context/auth-context";
 
 function App() {
   return (
-    <ThemeProvider>
-      <div>
-        <h1 className="text-3xl font-bold text-red-500">Hello World</h1>
-      </div>
+    <ThemeProvider defaultTheme="dark">
+      <AuthProvider>
+        <Layout>"hello World"</Layout>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
