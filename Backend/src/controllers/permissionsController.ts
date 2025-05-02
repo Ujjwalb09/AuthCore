@@ -31,3 +31,22 @@ export const getPermissions = asyncHandler(
     });
   }
 );
+
+export const deletePermissions = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { permissionId } = req.body;
+
+    // const allPermissions = await Permission.find();
+
+    // const updatedPermissions = allPermissions.filter(
+    //   (perm) => perm != permissionId
+    // );
+
+    //save the updated permissions
+    await Permission.deleteOne({ _id: permissionId });
+
+    res.status(200).json({
+      message: "Permission deleted successfully",
+    });
+  }
+);

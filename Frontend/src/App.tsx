@@ -7,6 +7,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Layout from "./components/Layout";
 import CommonPage from "./Pages/CommonPage";
+import CreatePermission from "./Pages/CreatePermission";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/access/:name" element={<CommonPage />} />
+              <Route path="/create-permission" element={<CreatePermission />} />
               <Route path="/" element={<Navigate to="/login" />} />
             </Routes>
           </Layout>

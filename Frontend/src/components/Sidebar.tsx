@@ -3,6 +3,7 @@ import {
   BadgeCheck,
   Home,
   KeyRound,
+  KeyRoundIcon,
   Menu,
   Settings,
   Shield,
@@ -60,31 +61,40 @@ const Sidebar = ({ className }: SidebarProps) => {
             {user?.isAdmin ? (
               <>
                 <ul className="space-y-2">
-                  <li>
+                  <li className="hover:scale-105 transition-all duration-300">
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
+                    >
+                      <Home size={17} />
+                      <span className="text-[14px]">Dashboard</span>
+                    </Link>
+                  </li>
+                  <li className="hover:scale-105 transition-all duration-300">
                     <a
                       href="#"
                       className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
                     >
-                      <Home size={18} />
-                      <span>Dashboard</span>
+                      <Users size={17} />
+                      <span className="text-[14px]">Manage Users</span>
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="#"
+                  <li className="hover:scale-105 transition-all duration-300">
+                    <Link
+                      to="/create-permission"
                       className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
                     >
-                      <Users size={18} />
-                      <span>Manage Users</span>
-                    </a>
+                      <KeyRoundIcon size={17} />
+                      <span className="text-[14px]">Manage Permissions</span>
+                    </Link>
                   </li>
-                  <li>
+                  <li className="hover:scale-105 transition-all duration-300">
                     <a
                       href="#"
                       className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
                     >
-                      <Settings size={18} />
-                      <span>Admin Settings</span>
+                      <Settings size={17} />
+                      <span className="text-[14px]">Admin Settings</span>
                     </a>
                   </li>
                 </ul>
@@ -127,7 +137,8 @@ const Sidebar = ({ className }: SidebarProps) => {
                 <div>
                   <div className="border rounded-md p-3 bg-muted/50">
                     <h3 className="text-sm font-semibold mb-2 flex items-center gap-1 text-muted-foreground">
-                      <KeyRound size={16} /> Permissions
+                      <KeyRound size={16} />
+                      Your Permissions
                     </h3>
                     <ul className="space-y-1 pl-2">
                       {permissions.length > 0 ? (

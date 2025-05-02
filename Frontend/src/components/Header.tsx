@@ -1,15 +1,18 @@
 import { useTheme } from "@/context/theme-provider";
 import { Moon, Sun } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const { theme, setTheme } = useTheme();
-
+  const navigate = useNavigate();
   const darkMode = theme === "dark";
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur py-2 supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
         {/* title */}
-        <div className="flex items-center">
+        <div
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center cursor-pointer"
+        >
           <h1 className="text-3xl font-bold text-blue-500 ">auth</h1>
           <h1 className="text-3xl font-bold">Core.</h1>
         </div>
