@@ -33,6 +33,7 @@ const Login = () => {
       });
 
       const perms = await axios.get("/users/permissions");
+      console.log(perms);
 
       setPermissions(perms.data.permissionsData);
       setRoles(perms.data.rolesData);

@@ -61,7 +61,7 @@ export const getAllUsers = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
     const users = await User.find().populate({
       path: "roles",
-      select: "names permissions",
+      select: "name permissions",
       populate: {
         path: "permissions",
         select: "name",
