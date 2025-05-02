@@ -51,7 +51,8 @@ export const getUserPermissions = asyncHandler(
 
     res.status(200).json({
       message: "Permissions fetched successfully",
-      data: uniquePermissions,
+      permissionsData: uniquePermissions,
+      rolesData: rolesWithPermissions,
     });
   }
 );

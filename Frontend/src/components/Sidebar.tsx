@@ -1,8 +1,17 @@
 import { useState } from "react";
-import { Home, Menu, Settings, Users, X } from "lucide-react";
+import {
+  BadgeCheck,
+  Home,
+  KeyRound,
+  Menu,
+  Settings,
+  Shield,
+  Users,
+  X,
+} from "lucide-react";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 type SidebarProps = {
@@ -12,7 +21,11 @@ type SidebarProps = {
 const Sidebar = ({ className }: SidebarProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const { logout } = useAuth();
+  const { logout, permissions, roles, user } = useAuth();
+  console.log(permissions);
+  console.log(roles);
+  console.log(user);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -44,36 +57,104 @@ const Sidebar = ({ className }: SidebarProps) => {
       >
         <div className="flex flex-col justify-between h-full">
           <div className="p-4">
-            <h2 className="text-lg font-semibold mb-4">Navigation</h2>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
-                >
-                  <Home size={18} />
-                  <span>Home</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
-                >
-                  <Users size={18} />
-                  <span>Users</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
-                >
-                  <Settings size={18} />
-                  <span>Settings</span>
-                </a>
-              </li>
-            </ul>
+            {user?.isAdmin ? (
+              <>
+                <ul className="space-y-2">
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
+                    >
+                      <Home size={18} />
+                      <span>Dashboard</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
+                    >
+                      <Users size={18} />
+                      <span>Manage Users</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
+                    >
+                      <Settings size={18} />
+                      <span>Admin Settings</span>
+                    </a>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <div className="mb-4">
+                  <h2 className="text-md font-semibold mb-4 text-primary tracking-tight">
+                    Welcome, {user?.name}
+                  </h2>
+                  <div className="border rounded-md p-3 bg-muted/50">
+                    <h3 className="text-sm font-semibold mb-2 flex items-center gap-1 text-muted-foreground">
+                      <Shield size={16} /> Roles Assigned
+                    </h3>
+                    <ul className="space-y-1 pl-2">
+                      {roles.length > 0 ? (
+                        roles.map((role) => (
+                          <li
+                            key={role._id}
+                            className="text-sm flex items-center gap-2 text-muted-foreground cursor-pointer hover:underline"
+                          >
+                            <Link
+                              to={`/access/${role.name}`}
+                              className="flex items-center gap-1"
+                            >
+                              <BadgeCheck size={14} className="text-blue-500" />
+                              <span>{role.name}</span>
+                            </Link>
+                          </li>
+                        ))
+                      ) : (
+                        <li className="text-xs text-muted-foreground">
+                          No roles assigned
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="border rounded-md p-3 bg-muted/50">
+                    <h3 className="text-sm font-semibold mb-2 flex items-center gap-1 text-muted-foreground">
+                      <KeyRound size={16} /> Permissions
+                    </h3>
+                    <ul className="space-y-1 pl-2">
+                      {permissions.length > 0 ? (
+                        permissions.map((perm) => (
+                          <li
+                            key={perm}
+                            className="text-sm flex items-center gap-2 text-muted-foreground cursor-pointer hover:underline"
+                          >
+                            <Link
+                              to={`/access/${perm}`}
+                              className="flex items-center gap-1"
+                            >
+                              <KeyRound size={14} className="text-green-600" />
+                              <span>{perm}</span>
+                            </Link>
+                          </li>
+                        ))
+                      ) : (
+                        <li className="text-xs text-muted-foreground">
+                          No permissions found
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <div className="mt-10 flex ">
             <button

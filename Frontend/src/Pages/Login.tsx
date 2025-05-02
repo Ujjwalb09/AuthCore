@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,11 +8,15 @@ import { toast } from "react-toastify";
 import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
-  const { login, setPermissions } = useAuth();
+  const { login, setPermissions, token, setRoles } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) navigate("/dashboard");
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,17 +25,17 @@ const Login = () => {
 
       console.log(data);
 
-      //   if (data.message === "Login Successfull") {
-      //   }
-
       login(data.data.token, {
         _id: data.data._id,
         email: data.data.email,
         isAdmin: data.data.isAdmin,
+        name: data.data.name,
       });
 
-      const permRes = await axios.get("/users/permissions");
-      setPermissions(permRes.data.permissions);
+      const perms = await axios.get("/users/permissions");
+
+      setPermissions(perms.data.permissionsData);
+      setRoles(perms.data.rolesData);
       toast.success("Login successful!");
       navigate("/dashboard");
     } catch (err: any) {
