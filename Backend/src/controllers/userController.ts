@@ -74,3 +74,11 @@ export const getAllUsers = asyncHandler(
     });
   }
 );
+
+export const deleteUsers = asyncHandler(async (req: Request, res: Response) => {
+  const { userId } = req.body;
+
+  await User.deleteOne({ userId });
+
+  res.status(200).json({ message: "User deleted successfully" });
+});

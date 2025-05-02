@@ -7,6 +7,7 @@ import {
   Menu,
   Settings,
   Shield,
+  UserCog,
   Users,
   X,
 } from "lucide-react";
@@ -71,24 +72,33 @@ const Sidebar = ({ className }: SidebarProps) => {
                     </Link>
                   </li>
                   <li className="hover:scale-105 transition-all duration-300">
-                    <a
-                      href="#"
+                    <Link
+                      to={"/manage-user"}
                       className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
                     >
                       <Users size={17} />
                       <span className="text-[14px]">Manage Users</span>
-                    </a>
+                    </Link>
                   </li>
                   <li className="hover:scale-105 transition-all duration-300">
                     <Link
-                      to="/create-permission"
+                      to="/manage-role"
+                      className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
+                    >
+                      <UserCog size={17} />
+                      <span className="text-[14px]">Manage Roles</span>
+                    </Link>
+                  </li>
+                  <li className="hover:scale-105 transition-all duration-300">
+                    <Link
+                      to="/manage-permission"
                       className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
                     >
                       <KeyRoundIcon size={17} />
                       <span className="text-[14px]">Manage Permissions</span>
                     </Link>
                   </li>
-                  <li className="hover:scale-105 transition-all duration-300">
+                  {/* <li className="hover:scale-105 transition-all duration-300">
                     <a
                       href="#"
                       className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
@@ -96,7 +106,7 @@ const Sidebar = ({ className }: SidebarProps) => {
                       <Settings size={17} />
                       <span className="text-[14px]">Admin Settings</span>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </>
             ) : (

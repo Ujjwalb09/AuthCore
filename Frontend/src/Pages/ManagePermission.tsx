@@ -12,7 +12,7 @@ interface Permission {
   createdAt: string;
 }
 
-const CreatePermission = () => {
+const ManagePermission = () => {
   const [permissionName, setPermissionName] = useState("");
   const [allPermissions, setAllPermissions] = useState<Permission[]>([]);
   const [loading, setLoading] = useState(false);
@@ -143,7 +143,7 @@ const CreatePermission = () => {
                             <Trash2
                               onClick={() => handleDeletePermissions(perm._id)}
                               size={16}
-                              className="text-red-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:scale-110"
+                              className="text-red-400 opacity-100 transition-opacity cursor-pointer hover:scale-110"
                             />
                           </div>
                         </td>
@@ -170,4 +170,4 @@ const CreatePermission = () => {
   );
 };
 
-export default CreatePermission;
+export default ManagePermission;

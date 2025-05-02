@@ -7,7 +7,9 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Layout from "./components/Layout";
 import CommonPage from "./Pages/CommonPage";
-import CreatePermission from "./Pages/CreatePermission";
+import ManagePermission from "./Pages/ManagePermission";
+import ManageRole from "./Pages/ManageRole";
+import ManageUser from "./Pages/ManageUser";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/access/:name" element={<CommonPage />} />
-              <Route path="/create-permission" element={<CreatePermission />} />
+              <Route path="/manage-permission" element={<ManagePermission />} />
+              <Route path="/manage-role" element={<ManageRole />} />
+              <Route path="/manage-user" element={<ManageUser />} />
               <Route path="/" element={<Navigate to="/login" />} />
             </Routes>
           </Layout>

@@ -30,7 +30,8 @@ export const removePermissionsFromRole = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
     const roleId = req.params.id;
 
-    const { permissionsIds } = req.body;
+    const { permissionIds } = req.body;
+    console.log("permissionsIds", permissionIds);
 
     const role = await Role.findById(roleId);
 
@@ -40,7 +41,7 @@ export const removePermissionsFromRole = asyncHandler(
       });
     } else {
       role.permissions = role.permissions.filter(
-        (permId) => !permissionsIds.includes(permId.toString())
+        (permId) => !permissionIds.includes(permId.toString())
       );
     }
 
@@ -83,3 +84,11 @@ export const addPermissionsToRole = asyncHandler(
     });
   }
 );
+
+export const deleteRole = asyncHandler(async (req: Request, res: Response) => {
+  const { roleId } = req.body;
+
+  await Role.deleteOne({ _id: roleId });
+
+  res.status(200).json({ message: "Role Deleted Successfully" });
+});

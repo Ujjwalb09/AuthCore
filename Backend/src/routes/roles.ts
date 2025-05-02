@@ -2,6 +2,7 @@ import express from "express";
 import {
   addPermissionsToRole,
   createRole,
+  deleteRole,
   getRoles,
   removePermissionsFromRole,
 } from "../controllers/roleController";
@@ -18,4 +19,5 @@ router.put(
   removePermissionsFromRole
 );
 router.put("/:id/add-permissions", protect, adminOnly, addPermissionsToRole);
+router.delete("/", protect, adminOnly, deleteRole);
 export default router;
