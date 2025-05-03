@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
-    "start": "nodemon src/app.ts"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "pre-commit": [
