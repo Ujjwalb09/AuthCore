@@ -5,9 +5,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "seed:admin": "ts-node src/seeder/createAdmin.ts"
+    "seed:admin": "ts-node src/seeder/createAdmin.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
+    "start": "nodemon src/app.ts"
   },
   "keywords": [],
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "author": "",
   "license": "ISC",
   "description": "",
