@@ -13,7 +13,7 @@ export const assignRolesToUser = asyncHandler(
 
     if (!user) res.status(400).json({ message: "user not found" });
 
-    user.roles = roleIds;
+    user.roles.push(...roleIds);
 
     const savedUser = await user.save();
 
@@ -21,6 +21,27 @@ export const assignRolesToUser = asyncHandler(
       message: "Roles assigned successfully",
       data: savedUser,
     });
+  }
+);
+
+export const removeRoleFromUser = asyncHandler(
+  async (req: Request, res: Response) => {
+    const userId = req.params.id;
+    const { roleId } = req.body;
+    console.log("roleId", roleId);
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(400).json("User not found");
+      return;
+    }
+    const updatedRoles = user.roles.filter((id) => id.toString() !== roleId);
+    user.roles = updatedRoles;
+
+    await user.save();
+
+    res.status(200).json({ message: "Role removed successfully" });
   }
 );
 
@@ -75,7 +96,7 @@ export const getAllUsers = asyncHandler(
   }
 );
 
-export const deleteUsers = asyncHandler(async (req: Request, res: Response) => {
+export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.body;
 
   await User.deleteOne({ userId });

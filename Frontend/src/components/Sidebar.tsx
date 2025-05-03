@@ -5,7 +5,6 @@ import {
   KeyRound,
   KeyRoundIcon,
   Menu,
-  Settings,
   Shield,
   UserCog,
   Users,
