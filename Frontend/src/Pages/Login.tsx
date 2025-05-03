@@ -79,6 +79,15 @@ const Login = () => {
         <Button type="submit" className="w-full">
           Login
         </Button>
+        <div className="mt-3 pt-2 border-t border-gray-200">
+          <p className="text-xs text-gray-500">
+            If you want to login as Admin please use below credentials
+            <br />
+            email: <span className="font-semibold">admin@admin.com</span>
+            <br />
+            password: <span className="font-semibold">admin</span>
+          </p>
+        </div>
       </form>
     </div>
   );
