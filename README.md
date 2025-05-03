@@ -114,6 +114,6 @@ npm run dev
 
 ```
 
-## Completion Note
+## ✅ Completion Note
 
-**✅ Project completed as part of Company assignment**
+**Project completed as part of Company assignment**
