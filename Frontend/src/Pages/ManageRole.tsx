@@ -49,7 +49,7 @@ const ManageRole = () => {
   );
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [loading, setLoading] = useState(false);
-  const [updating, setUpdating] = useState(false);
+  const [, setUpdating] = useState(false);
 
   // Fetch permissions
   const fetchPermissions = async () => {

@@ -56,11 +56,11 @@ const ManageUser = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin] = useState(false);
   const [roles, setRoles] = useState<Role[]>([]);
   const [selectedRoleIds, setSelectedRoleIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const [updating, setUpdating] = useState(false);
+  const [, setUpdating] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   // Fetch users
