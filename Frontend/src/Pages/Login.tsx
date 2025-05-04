@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 import axios from "../lib/axios";
 import { toast } from "react-toastify";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 const Login = () => {
   const { login, setPermissions, token, setRoles } = useAuth();
@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     if (token) navigate("/dashboard");
   }, []);
@@ -21,6 +21,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const { data } = await axios.post("/auth/login", { email, password });
 
       console.log(data);
@@ -41,6 +42,8 @@ const Login = () => {
       navigate("/dashboard");
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -77,7 +80,15 @@ const Login = () => {
           </button>
         </div>
         <Button type="submit" className="w-full">
-          Login
+          <div className="flex items-center justify-center">
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+              </>
+            ) : (
+              "Login"
+            )}
+          </div>
         </Button>
         <div className="mt-3 pt-2 border-t border-gray-200">
           <p className="text-xs text-gray-500">
