@@ -10,6 +10,7 @@ import CommonPage from "./Pages/CommonPage";
 import ManagePermission from "./Pages/ManagePermission";
 import ManageRole from "./Pages/ManageRole";
 import ManageUser from "./Pages/ManageUser";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/manage-user" element={<ManageUser />} />
               <Route path="/" element={<Navigate to="/login" />} />
             </Routes>
+            <Analytics />
           </Layout>
           <ToastContainer
             position="top-right"
