@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import { IUserDocument, User } from "../models/User";
 import { IRoleDocument, Role } from "../models/Role";
 import { AuthenticatedRequest } from "../types/types";
+import { IPermissionDocument } from "../models/Permissions";
 
 export const assignRolesToUser = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
@@ -49,31 +50,30 @@ export const getUserPermissions = asyncHandler(
   async (req: AuthenticatedRequest, res: Response) => {
     const user = await User.findById(req.user?._id).populate<{
       roles: IRoleDocument[];
-    }>("roles");
+      permissions: IPermissionDocument[];
+    }>({
+      path: "roles",
 
-    if (!user) res.status(400).json("User not found");
+      populate: {
+        path: "permissions",
+      },
+    });
 
-    //fetching role IDs of roles User have.
-    const roleIds = user?.roles.map((role) => role._id);
-
-    //populating permissions roles
-    const rolesWithPermissions = await Role.find({
-      _id: { $in: roleIds },
-    }).populate("permissions");
-
-    const allPermissions: string[] = [];
-
-    for (const role of rolesWithPermissions) {
-      const permissionNames = role.permissions.map((perm: any) => perm.name);
-      allPermissions.push(...permissionNames);
+    if (!user) {
+      res.status(400).json("User not found");
+      return;
     }
 
-    const uniquePermissions = Array.from(new Set(allPermissions));
+    const allPermissions = user.roles.map((role) =>
+      role.permissions.map((perm: any) => perm.name)
+    );
+
+    const uniquePermissions = [...new Set(allPermissions.flat())];
 
     res.status(200).json({
       message: "Permissions fetched successfully",
       permissionsData: uniquePermissions,
-      rolesData: rolesWithPermissions,
+      rolesData: user.roles,
     });
   }
 );
