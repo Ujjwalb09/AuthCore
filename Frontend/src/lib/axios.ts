@@ -1,19 +1,19 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "https://authcore-backend.vercel.app/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-//local instance
 // const instance = axios.create({
-//   baseURL: "http://localhost:5000/api",
+//   baseURL: "https://authcore-backend.vercel.app/api",
 //   headers: {
 //     "Content-Type": "application/json",
 //   },
 // });
+
+//local instance
+const instance = axios.create({
+  baseURL: "http://localhost:5000/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 //automatically attaching token to outgoing requests
 instance.interceptors.request.use((config) => {
